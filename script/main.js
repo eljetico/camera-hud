@@ -346,7 +346,8 @@ var artificialHorizon = (function() {
       contextStatic.lineWidth = lineWidth;
 
       aspectRatio = document.body.clientWidth / document.body.clientHeight;
-      diameter = Math.min(canvas.width, canvas.height);
+      // diameter = Math.min(canvas.width, canvas.height);
+      diameter = canvas.height;
       radius = diameter / 2;
 
       drawStaticHud();
