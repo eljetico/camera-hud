@@ -5,6 +5,7 @@ var artificialHorizon = (function() {
   var canvas, context, canvasStatic, contextStatic, hud;
   var strokeStyle = "rgba(255, 255, 255, 0.4)";
   var lineWidth = 2;
+  var calcCache = {};
 
   var aspectRatio = 0, diameter = 0, radius = 0;
   var horizon = 0, pitch = 0, roll = 0, _rawRoll = 0;
@@ -27,10 +28,20 @@ var artificialHorizon = (function() {
     });
   }
 
+  function calculatePitch(_roll) {
+    var result = calcCache[_roll];
+    if (!result) {
+      result = -Math.atan2(aZ, aX * Math.sin(_roll) + aY * Math.cos(_roll));
+      calcCache[_roll] = result;
+    }
+
+    return result;
+  }
+
   function draw(timestamp) {
     if (previousTs !== timestamp) {
       roll = Math.atan2(aX, aY);
-      pitch = -Math.atan2(aZ, aX * Math.sin(roll) + aY * Math.cos(roll));
+      pitch = calculatePitch(roll);
 
       previousTs = timestamp;
 
