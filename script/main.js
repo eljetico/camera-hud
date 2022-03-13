@@ -141,7 +141,7 @@ var artificialHorizon = (function() {
     // Right box
     ctx.beginPath();
     ctx.moveTo(col * 5, cY - (length / 2));
-    ctx.lineTo(col * 5, cy + (length / 2));
+    ctx.lineTo(col * 5, cY + (length / 2));
     ctx.stroke();
   }
 
