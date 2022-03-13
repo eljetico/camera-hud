@@ -145,12 +145,18 @@ var artificialHorizon = (function() {
     ctx.moveTo(col - 10, cY + (length / 2));
     ctx.lineTo(col, cY + (length / 2));
 
-    ctx.stroke();
-
     // Right box
-    ctx.beginPath();
     ctx.moveTo(col * 5, cY - (length / 2));
     ctx.lineTo(col * 5, cY + (length / 2));
+
+    // Right box top 'ear'
+    ctx.moveTo(col * 5, cY - (length / 2));
+    ctx.lineTo((col * 5) + 10, cY - (length / 2));
+
+    // Right box lower 'ear'
+    ctx.moveTo(col * 5, cY + (length / 2));
+    ctx.lineTo((col * 5) + 10, cY + (length / 2));
+
     ctx.stroke();
   }
 
