@@ -118,9 +118,9 @@ var artificialHorizon = (function() {
     contextStatic.lineTo(cX + 40, cY);
 
     contextStatic.stroke();
-    contextStatic.restore();
 
     drawBoundingBoxLines(contextStatic);
+    contextStatic.restore();
   }
 
   function drawBoundingBoxLines(ctx) {
@@ -132,20 +132,17 @@ var artificialHorizon = (function() {
     var length = canvasStatic.height / 4;
     var col = (canvasStatic.width / 6);
 
-    ctx.save();
-
     // Left box
     ctx.beginPath();
     ctx.moveTo(col, cY - (length / 2));
     ctx.lineTo(col, cY + (length / 2));
-    // ctx.stroke();
+    ctx.stroke();
 
     // Right box
+    ctx.beginPath();
     ctx.moveTo(col * 5, cY - (length / 2));
     ctx.lineTo(col * 5, cy + (length / 2));
     ctx.stroke();
-
-    ctx.restore();
   }
 
   function drawFlatHorizonLine() {
