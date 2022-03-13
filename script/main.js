@@ -191,9 +191,17 @@ var artificialHorizon = (function() {
   function getDateString() {
     var d = new Date();
     var yr = d.getFullYear();
-    var mon = pad2(d.getUTCMonth() + 1);
-    var day = pad2(d.getUTCDate());
-    return yr + "" + mon + "" + day;
+    var mn = pad2(d.getUTCMonth() + 1);
+    var dy = pad2(d.getUTCDate());
+    return yr + "" + mn + "" + dy;
+  }
+
+  function getTimeString() {
+    var d = new Date();
+    var hr = pad2(d.getUTCHours());
+    var mn = pad2(d.getUTCMinutes());
+    var ss = pad2(d.getUTCSeconds());
+    return hr + "" + mn + "" + ss;
   }
 
   function getHorizon(pitch) {
@@ -243,16 +251,30 @@ var artificialHorizon = (function() {
 
     function drawDate(canvas) {
       var ctx = canvas.getContext('2d');
-      var dateStr = getDateString();
+      var str = getDateString();
       ctx.font = "15px ui-monospace";
       ctx.fillStyle = strokeStyle;
       ctx.textBaseline = "bottom";
       ctx.textAlign = "right";
-      var text = ctx.measureText(dateStr);
+      var text = ctx.measureText(str);
       var width = text.width;
       var x = canvas.width - 15;
       var y = canvas.height - 15;
-      ctx.fillText(dateStr, x, y);
+      ctx.fillText(str, x, y);
+    };
+
+    function drawTime(canvas) {
+      var ctx = canvas.getContext('2d');
+      var str = getTimeString();
+      ctx.font = "15px ui-monospace";
+      ctx.fillStyle = strokeStyle;
+      ctx.textBaseline = "bottom";
+      ctx.textAlign = "right";
+      var text = ctx.measureText(str);
+      var width = text.width;
+      var x = canvas.width - 15;
+      var y = canvas.height - 35;
+      ctx.fillText(str, x, y);
     };
 
     cameraTrigger.onclick = function() {
@@ -282,12 +304,14 @@ var artificialHorizon = (function() {
       vFactor = cameraSensor.height / canvasStatic.height;
 
       contextStatic.save();
+
       contextStatic.scale(hFactor, vFactor);
       nX = (cameraSensor.width - canvasStatic.width) / 2;
       nY = (cameraSensor.height - canvasStatic.height) / 2;
 
       cameraSensorContext.drawImage(canvasStatic, nX, nY);
-      drawDate(cameraSensor); // we don't want this in UI
+      drawTime(cameraSensor); // we don't want these in UI
+      drawDate(cameraSensor);
 
       contextStatic.restore();
 
