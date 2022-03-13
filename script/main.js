@@ -31,26 +31,33 @@ var artificialHorizon = (function() {
   }
 
   function calculatePitch(_roll) {
-    var result = calcCache[_roll];
-    if (!result) {
-      result = -Math.atan2(aZ, aX * Math.sin(_roll) + aY * Math.cos(_roll));
-      calcCache[_roll] = result;
-    }
+    // var result = calcCache[_roll];
+    // if (!result) {
+    var result = -Math.atan2(aZ, aX * Math.sin(_roll) + aY * Math.cos(_roll));
+    //   calcCache[_roll] = result;
+    // }
 
     return result;
   }
 
   function draw(timestamp) {
-    if (previousTs !== timestamp) {
-      roll = Math.atan2(aX, aY);
-      pitch = calculatePitch(roll);
+    cRoll = roll.valueOf();
+    cPitch = pitch.valueOf();
 
-      previousTs = timestamp;
+    nRoll = Math.atan2(aX, aY);
+    nPitch = calculatePitch(nRoll);
 
-      repaint();
-    }
+    roll = signalFilter(nRoll, cRoll);
+    pitch = signalFilter(nPitch, cPitch);
+
+    repaint();
 
     window.requestAnimationFrame(draw);
+  }
+
+  // Attempting to smooth motion readings
+  function signalFilter(newValue, currValue) {
+    return (newValue + currValue) / 2;
   }
 
   function repaint() {
