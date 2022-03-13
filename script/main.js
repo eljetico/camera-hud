@@ -209,11 +209,11 @@ var artificialHorizon = (function() {
   }
 
   function updateAccelerations(evt) {
-    if (!evt || !evt.accelerationIncludingGravity) {
+    if (!evt || !evt.acceleration) {
       return;
     }
 
-    var accelData = evt.accelerationIncludingGravity;
+    var accelData = evt.acceleration;
 
     var _aX = accelData.x;
     var _aY = accelData.y;
