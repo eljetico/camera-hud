@@ -131,8 +131,8 @@ var artificialHorizon = (function() {
   function drawHorizonConnector(yPos) {
     context.save
     context.beginPath();
-    context.moveTo(radius, yPos);
-    context.lineTo(radius, radius);
+    context.moveTo(diameter, yPos);
+    context.lineTo(diameter, diameter);
     context.stroke();
     context.restore();
   }
