@@ -3,7 +3,7 @@ var artificialHorizon = (function() {
 
   var cameraView, cameraOutput, cameraSensor, cameraTrigger;
   var canvas, context, canvasStatic, contextStatic, hud;
-  var strokeStyle = "white";
+  var strokeStyle = "rgba(255, 255, 255, 0.4)";
   var lineWidth = 2;
 
   var aspectRatio = 0, diameter = 0, radius = 0;
