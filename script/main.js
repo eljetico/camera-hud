@@ -193,7 +193,7 @@ var artificialHorizon = (function() {
     var yr = d.getFullYear();
     var mon = pad2(d.getUTCMonth() + 1);
     var day = pad2(d.getUTCDate());
-    return yr + "." + mon + "." + day;
+    return yr + "" + mon + "" + day;
   }
 
   function getHorizon(pitch) {
@@ -305,7 +305,7 @@ var artificialHorizon = (function() {
       cameraSensor = document.querySelector("#camera--sensor"),
       cameraTrigger = document.querySelector("#camera--trigger");
 
-      // cameraStart();
+      cameraStart();
 
       hud = document.getElementById("hud");
 
