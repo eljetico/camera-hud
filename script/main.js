@@ -294,7 +294,7 @@ var artificialHorizon = (function() {
       cameraSensor = document.querySelector("#camera--sensor"),
       cameraTrigger = document.querySelector("#camera--trigger");
 
-      cameraStart();
+      // cameraStart();
 
       hud = document.getElementById("hud");
 
