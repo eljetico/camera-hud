@@ -131,11 +131,11 @@ var artificialHorizon = (function() {
     var cY = canvasStatic.height / 2;
     var length = canvasStatic.height / 4;
     var col = (canvasStatic.width / 6);
-    var width = canvasStatic.width;
 
     ctx.save();
 
     // Left box
+    ctx.beginPath();
     ctx.moveTo(col, cY - (length / 2));
     ctx.lineTo(col, cY + (length / 2));
     ctx.stroke();
