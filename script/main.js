@@ -12,6 +12,8 @@ var artificialHorizon = (function() {
   var aX = 0, aY = 0, aZ = 0;
 
   var limitHorizonScale = true;
+  var drawEnclosingCircle = false;
+  var drawBoundingBox = true;
 
   var previousTs;
 
@@ -62,8 +64,12 @@ var artificialHorizon = (function() {
     // draw containing circle
     context.beginPath();
     context.arc(0, 0, radius - 4, 0, 2 * Math.PI, false);
-    context.lineWidth = 1;
-    context.stroke();
+
+    if (drawEnclosingCircle) {
+      context.lineWidth = 1;
+      context.stroke();
+    }
+
     context.clip();
 
     var scaleWidth = canvas.width / 2;
@@ -113,6 +119,33 @@ var artificialHorizon = (function() {
 
     contextStatic.stroke();
     contextStatic.restore();
+
+    drawBoundingBoxLines(contextStatic);
+  }
+
+  function drawBoundingBoxLines(ctx) {
+    if (!drawBoundingBox) {
+      return true;
+    }
+
+    var cY = canvasStatic.height / 2;
+    var length = canvasStatic.height / 4;
+    var col = (canvasStatic.width / 6);
+    var width = canvasStatic.width;
+
+    ctx.save();
+
+    // Left box
+    ctx.moveTo(col, cY - (length / 2));
+    ctx.lineTo(col, cY + (length / 2));
+    ctx.stroke();
+
+    // Right box
+    ctx.moveTo(col * 5, cY - (length / 2));
+    ctx.lineTo(col * 5, cy + (length / 2));
+    ctx.stroke();
+
+    ctx.restore();
   }
 
   function drawFlatHorizonLine() {
