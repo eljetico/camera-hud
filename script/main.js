@@ -3,7 +3,7 @@ var artificialHorizon = (function() {
 
   var cameraView, cameraOutput, cameraSensor, cameraTrigger;
   var canvas, context, canvasStatic, contextStatic, hud;
-  var strokeStyle = "rgba(255, 255, 255, 0.4)";
+  var strokeStyle = "rgba(255, 255, 255, 0.6)";
   var lineWidth = 2;
   var calcCache = {};
 
@@ -12,6 +12,8 @@ var artificialHorizon = (function() {
   var aX = 0, aY = 0, aZ = 0;
 
   var limitHorizonScale = true;
+  var drawEnclosingCircle = false;
+  var drawBoundingBox = true;
 
   var previousTs;
 
@@ -62,8 +64,12 @@ var artificialHorizon = (function() {
     // draw containing circle
     context.beginPath();
     context.arc(0, 0, radius - 4, 0, 2 * Math.PI, false);
-    context.lineWidth = 1;
-    context.stroke();
+
+    if (drawEnclosingCircle) {
+      context.lineWidth = 1;
+      context.stroke();
+    }
+
     context.clip();
 
     var scaleWidth = canvas.width / 2;
@@ -112,7 +118,46 @@ var artificialHorizon = (function() {
     contextStatic.lineTo(cX + 40, cY);
 
     contextStatic.stroke();
+
+    drawBoundingBoxLines(contextStatic);
     contextStatic.restore();
+  }
+
+  function drawBoundingBoxLines(ctx) {
+    if (!drawBoundingBox) {
+      return true;
+    }
+
+    var cY = canvasStatic.height / 2;
+    var length = canvasStatic.height / 4;
+    var col = (canvasStatic.width / 6);
+
+    // Left box
+    ctx.beginPath();
+    ctx.moveTo(col, cY - (length / 2));
+    ctx.lineTo(col, cY + (length / 2));
+
+    // Left box top 'ear'
+    ctx.moveTo(col - 10, cY - (length / 2));
+    ctx.lineTo(col, cY - (length / 2));
+
+    // Left box lower 'ear'
+    ctx.moveTo(col - 10, cY + (length / 2));
+    ctx.lineTo(col, cY + (length / 2));
+
+    // Right box
+    ctx.moveTo(col * 5, cY - (length / 2));
+    ctx.lineTo(col * 5, cY + (length / 2));
+
+    // Right box top 'ear'
+    ctx.moveTo(col * 5, cY - (length / 2));
+    ctx.lineTo((col * 5) + 10, cY - (length / 2));
+
+    // Right box lower 'ear'
+    ctx.moveTo(col * 5, cY + (length / 2));
+    ctx.lineTo((col * 5) + 10, cY + (length / 2));
+
+    ctx.stroke();
   }
 
   function drawFlatHorizonLine() {
@@ -200,7 +245,7 @@ var artificialHorizon = (function() {
 
   function getDateString() {
     var d = new Date();
-    var yr = d.getFullYear();
+    var yr = d.getFullYear().substr(2, 2); // remove '20' from year
     var mn = pad2(d.getUTCMonth() + 1);
     var dy = pad2(d.getUTCDate());
     return yr + "" + mn + "" + dy;
