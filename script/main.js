@@ -245,7 +245,7 @@ var artificialHorizon = (function() {
 
   function getDateString() {
     var d = new Date();
-    var yr = d.getFullYear();
+    var yr = d.getFullYear().substr(2, 2); // remove '20' from year
     var mn = pad2(d.getUTCMonth() + 1);
     var dy = pad2(d.getUTCDate());
     return yr + "" + mn + "" + dy;
