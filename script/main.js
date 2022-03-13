@@ -136,6 +136,15 @@ var artificialHorizon = (function() {
     ctx.beginPath();
     ctx.moveTo(col, cY - (length / 2));
     ctx.lineTo(col, cY + (length / 2));
+
+    // Left box top 'ear'
+    ctx.moveTo(col - 10, cY - (length / 2));
+    ctx.lineTo(col, cY - (length / 2));
+
+    // Left box lower 'ear'
+    ctx.moveTo(col - 10, cY + (length / 2));
+    ctx.lineTo(col, cY + (length / 2));
+
     ctx.stroke();
 
     // Right box
