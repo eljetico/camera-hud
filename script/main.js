@@ -41,11 +41,11 @@ var artificialHorizon = (function() {
   }
 
   function draw(timestamp) {
-    cRoll = roll.valueOf();
-    cPitch = pitch.valueOf();
+    var cRoll = roll.valueOf();
+    var cPitch = pitch.valueOf();
 
-    nRoll = Math.atan2(aX, aY);
-    nPitch = calculatePitch(nRoll);
+    var nRoll = Math.atan2(aX, aY);
+    var nPitch = calculatePitch(nRoll);
 
     roll = signalFilter(nRoll, cRoll);
     pitch = signalFilter(nPitch, cPitch);
