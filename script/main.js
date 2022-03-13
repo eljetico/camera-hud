@@ -245,10 +245,10 @@ var artificialHorizon = (function() {
 
   function getDateString() {
     var d = new Date();
-    var yr = d.getFullYear(); // remove '20' from year
+    var yr = d.getFullYear().toString().substr(2, 2); // remove '20' from year
     var mn = pad2(d.getUTCMonth() + 1);
     var dy = pad2(d.getUTCDate());
-    return yr.substr(2, 2) + "" + mn + "" + dy;
+    return yr + "" + mn + "" + dy;
   }
 
   function getTimeString() {
