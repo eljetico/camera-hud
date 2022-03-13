@@ -123,18 +123,17 @@ var artificialHorizon = (function() {
     context.moveTo(-diameter, yPos);
     context.lineTo(2 * diameter, yPos);
     context.stroke();
-    context.restore();
 
     drawHorizonConnector(yPos);
+
+    context.restore();
   }
 
   function drawHorizonConnector(yPos) {
-    context.save();
     context.beginPath();
     context.moveTo(diameter, yPos);
     context.lineTo(diameter, diameter);
     context.stroke();
-    context.restore();
   }
 
   function drawScale(offset, scaleWidth) {
