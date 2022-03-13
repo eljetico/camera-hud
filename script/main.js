@@ -75,7 +75,7 @@ var artificialHorizon = (function() {
     context.clip();
 
     // draw scale
-    drawScaleBars(scaleWidth);
+    // drawScaleBars(scaleWidth);
 
     drawFlatHorizonLine();
 
