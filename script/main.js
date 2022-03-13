@@ -124,6 +124,17 @@ var artificialHorizon = (function() {
     context.lineTo(2 * diameter, yPos);
     context.stroke();
     context.restore();
+
+    drawHorizonConnector(yPos);
+  }
+
+  function drawHorizonConnector(yPos) {
+    context.save
+    context.beginPath();
+    context.moveTo(radius, yPos);
+    context.lineTo(radius, radius);
+    context.stroke();
+    context.restore();
   }
 
   function drawScale(offset, scaleWidth) {
@@ -346,7 +357,6 @@ var artificialHorizon = (function() {
       contextStatic.lineWidth = lineWidth;
 
       aspectRatio = document.body.clientWidth / document.body.clientHeight;
-      // diameter = Math.min(canvas.width, canvas.height);
       diameter = canvas.height;
       radius = diameter / 2;
 
