@@ -129,7 +129,7 @@ var artificialHorizon = (function() {
     }
 
     var cY = canvasStatic.height / 2;
-    var length = canvasStatic.height / 4;
+    var length = canvasStatic.height / 2;
     var col = (canvasStatic.width / 6);
 
     // Left box
