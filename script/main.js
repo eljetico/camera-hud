@@ -260,8 +260,7 @@ var artificialHorizon = (function() {
   }
 
   function getHorizon(pitch) {
-    // return Math.sin(pitch) * radius;
-    return pitch * diameter;
+    return Math.sin(pitch) * diameter;
   }
 
   function pad2(number) {
