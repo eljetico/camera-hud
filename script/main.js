@@ -410,7 +410,7 @@ var artificialHorizon = (function() {
       contextStatic.lineWidth = lineWidth;
 
       // calculate pitchConstant based on canvasStatic height
-      pitchConstant = (canvasStatic.height / 2) * Math.sin(radians(90));
+      pitchConstant = (canvasStatic.height / 2) * Math.sin(90); // use degrees here
 
       aspectRatio = document.body.clientWidth / document.body.clientHeight;
       diameter = canvas.height;
