@@ -35,10 +35,12 @@ var artificialHorizon = (function() {
   }
 
   function draw(timestamp) {
-    roll = Math.atan2(aX, aY);
-    pitch = calculatePitch(roll);
+    if ((Date.now() % 50) == 0) {
+      roll = Math.atan2(aX, aY);
+      pitch = calculatePitch(roll);
 
-    repaint();
+      repaint();
+    }
 
     window.requestAnimationFrame(draw);
   }
