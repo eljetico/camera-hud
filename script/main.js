@@ -10,6 +10,7 @@ var artificialHorizon = (function() {
   var horizon = 0, pitch = 0, roll = 0, _rawRoll = 0;
   var aX = 0, aY = 0, aZ = 0;
 
+  var msDelay = 50;
   var previousMs = 0;
 
   var limitHorizonScale = true;
@@ -39,7 +40,7 @@ var artificialHorizon = (function() {
   function draw(timestamp) {
     var ms = Date.now();
 
-    if ((ms - previousMs) >= 10) {
+    if ((ms - previousMs) >= msDelay) {
       roll = Math.atan2(aX, aY);
       pitch = calculatePitch(roll);
 
