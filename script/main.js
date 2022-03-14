@@ -156,12 +156,12 @@ var artificialHorizon = (function() {
 
   function drawActualHorizonPosition() {
     var cY = canvasStatic.height / 2;
-    var yPos = (pitchConstant / Math.sin(radians(_rawPitch))) - cY; // use degrees here
+    var yPos = (pitchConstant / Math.sin(_rawPitch)) - cY; // use degrees here
     updatePitchIndicator(yPos);
   }
 
   function drawFlatHorizonLine() {
-    var yPos = getHorizon(radians(pitch));
+    var yPos = getHorizon(pitch + 0 * Math.PI / 180);
 
     context.save();
     context.beginPath();
@@ -239,14 +239,14 @@ var artificialHorizon = (function() {
     context.clip();
 
     // Lower scale line
-    h = getHorizon(radians(pitch + offset));
+    h = getHorizon(pitch + offset * Math.PI / 180);
     context.beginPath();
     context.moveTo(-diameter, h);
     context.lineTo(2 * diameter, h);
     context.stroke();
 
     // Upper scale line
-    h = getHorizon(radians(pitch - offset));
+    h = getHorizon(pitch - offset * Math.PI / 180);
     context.beginPath();
     context.moveTo(-diameter, h);
     context.lineTo(2 * diameter, h);
@@ -410,7 +410,7 @@ var artificialHorizon = (function() {
       contextStatic.lineWidth = lineWidth;
 
       // calculate pitchConstant based on canvasStatic height
-      pitchConstant = (canvasStatic.height / 2) * Math.sin(radians(90));
+      pitchConstant = (canvasStatic.height / 2) * Math.sin(90); // use degrees here
 
       aspectRatio = document.body.clientWidth / document.body.clientHeight;
       diameter = canvas.height;
