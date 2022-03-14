@@ -23,8 +23,6 @@ var artificialHorizon = (function() {
         .getUserMedia(constraints)
         .then(function(stream) {
           cameraView.srcObject = stream;
-          // const track = stream.getVideoTracks()[0];
-          // imageCapture = new ImageCapture(track);
         })
     .catch(function(error) {
         console.error("Oops. Something is broken.", error);
@@ -71,7 +69,7 @@ var artificialHorizon = (function() {
 
     // draw 'tape' container and clip content
     context.beginPath();
-    context.rect( -xScaleWidth / 2, -diameter, xScaleWidth, 2 * diameter); // width of line
+    context.rect(-xScaleWidth / 2, -diameter, xScaleWidth, 2 * diameter); // width of line
     context.clip();
 
     // draw scale
@@ -156,7 +154,7 @@ var artificialHorizon = (function() {
 
   function drawActualHorizonPosition() {
     var cY = canvasStatic.height / 2;
-    var yPos = (pitchConstant / Math.sin(_rawPitch)) - cY; // use degrees here
+    var yPos = (pitchConstant / Math.sin(radians(_rawPitch))); // use degrees here
     updatePitchIndicator(yPos);
   }
 
@@ -282,7 +280,7 @@ var artificialHorizon = (function() {
   }
 
   function radians(degs) {
-    return degs * Math.PI/180;
+    return degs * (Math.PI/180);
   }
 
   function updatePitchIndicator(pitch) {
@@ -410,7 +408,7 @@ var artificialHorizon = (function() {
       contextStatic.lineWidth = lineWidth;
 
       // calculate pitchConstant based on canvasStatic height
-      pitchConstant = (canvasStatic.height / 2) * Math.sin(90); // use degrees here
+      pitchConstant = (canvasStatic.height / 2) * Math.sin(radians(90)); // use degrees here
 
       aspectRatio = document.body.clientWidth / document.body.clientHeight;
       diameter = canvas.height;
