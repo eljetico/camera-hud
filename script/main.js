@@ -409,10 +409,10 @@ var artificialHorizon = (function() {
       contextStatic.strokeStyle = strokeStyle;
       contextStatic.lineWidth = lineWidth;
 
-      alert("Screen height: " + canvasStatic.height);
+      // alert("Screen height: " + canvasStatic.height);
 
       // calculate pitchConstant based on canvasStatic height
-      pitchConstant = (canvasStatic.height / 2) * Math.sin(90); // use degrees here
+      pitchConstant = (canvasStatic.height / 2) * Math.sin(radians(90)); // use degrees here
 
       aspectRatio = document.body.clientWidth / document.body.clientHeight;
       diameter = canvas.height;
