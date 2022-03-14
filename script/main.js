@@ -249,8 +249,7 @@ var artificialHorizon = (function() {
 
   function getHorizon(pitch) {
     // Pin horizon attempts:
-    // return Math.sin(pitch) * radius;
-    pitch * radius;
+    return Math.sin(pitch) * radius;
   }
 
   function pad2(number) {
