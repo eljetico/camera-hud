@@ -10,7 +10,7 @@ var artificialHorizon = (function() {
   var horizon = 0, pitch = 0, roll = 0, _rawRoll = 0;
   var aX = 0, aY = 0, aZ = 0;
 
-  var msDelay = 50;
+  var msDelay = 100;
   var previousMs = 0;
 
   var limitHorizonScale = true;
@@ -266,6 +266,8 @@ var artificialHorizon = (function() {
   }
 
   function run() {
+    previousMs = Date.now();
+
     hud.onclick = function() {
       if (window.DeviceOrientationEvent) {
         DeviceOrientationEvent.requestPermission()
