@@ -154,7 +154,7 @@ var artificialHorizon = (function() {
 
   function drawActualHorizonPosition() {
     var cY = canvasStatic.height / 2;
-    var yPos = (pitchConstant / Math.sin(radians(_rawPitch))); // use degrees here
+    var yPos = pitchConstant / Math.sin(radians(_rawPitch)); // use degrees here
     updatePitchIndicator(yPos);
   }
 
