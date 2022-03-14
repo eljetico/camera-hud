@@ -29,7 +29,7 @@ canvas#hudStatic {
 	position: absolute;
 }
 
-#hud {
+#hud, #pitch {
 	position: absolute;
 	z-index: 4;
 	color: white;
@@ -39,6 +39,10 @@ canvas#hudStatic {
 	padding: 2px;
 	background-color: none;
 	border: 2px solid white;
+}
+
+#pitch {
+	top: 50px;
 }
 
 #camera, #camera--view, #camera--sensor, #camera--output{

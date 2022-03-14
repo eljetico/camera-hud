@@ -2,12 +2,12 @@ var artificialHorizon = (function() {
   var constraints = { video: { facingMode: "environment" }, audio: false };
 
   var cameraView, cameraOutput, cameraSensor, cameraTrigger;
-  var canvas, context, canvasStatic, contextStatic, hud;
+  var canvas, context, canvasStatic, contextStatic, hud, pitchIndicator;
   var strokeStyle = "rgba(255, 255, 255, 0.6)";
   var lineWidth = 2;
 
   var aspectRatio = 0, diameter = 0, radius = 0;
-  var horizon = 0, pitch = 0, roll = 0, _rawRoll = 0;
+  var horizon = 0, pitch = 0, roll = 0, _rawPitch = 0, _rawRoll = 0;
   var aX = 0, aY = 0, aZ = 0;
 
   var limitHorizonScale = true;
@@ -37,6 +37,8 @@ var artificialHorizon = (function() {
   function draw(timestamp) {
     roll = Math.atan2(aX, aY);
     pitch = calculatePitch(roll);
+
+    updatePitchIndicator(_rawPitch);
 
     repaint();
 
@@ -229,6 +231,7 @@ var artificialHorizon = (function() {
     }
 
     _rawRoll = evt.gamma;
+    _rawPitch = evt.beta;
   }
 
   function getDateString() {
@@ -321,6 +324,14 @@ var artificialHorizon = (function() {
       ctx.fillText(str, x, y);
     };
 
+    function radians(degs) {
+      return degs * Math.PI/180;
+    }
+
+    function updatePitchIndicator(pitch) {
+      pitchIndicator.textContent = pitch;
+    }
+
     cameraTrigger.onclick = function() {
       // ORIGINAL PHOTO
       cameraSensor.width = cameraView.videoWidth;
@@ -376,6 +387,7 @@ var artificialHorizon = (function() {
       cameraStart();
 
       hud = document.getElementById("hud");
+      pitchIndicator = document.getElementById("pitch");
 
       canvas = document.getElementById("horizon");
       context = canvas.getContext("2d");
