@@ -326,11 +326,11 @@ var artificialHorizon = (function() {
 
     function radians(degs) {
       return degs * Math.PI/180;
-    }
+    };
 
     function updatePitchIndicator(pitch) {
       pitchIndicator.textContent = pitch;
-    }
+    };
 
     cameraTrigger.onclick = function() {
       // ORIGINAL PHOTO
