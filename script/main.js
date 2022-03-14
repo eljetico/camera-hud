@@ -5,7 +5,6 @@ var artificialHorizon = (function() {
   var canvas, context, canvasStatic, contextStatic, hud;
   var strokeStyle = "rgba(255, 255, 255, 0.6)";
   var lineWidth = 2;
-  var calcCache = {};
 
   var aspectRatio = 0, diameter = 0, radius = 0;
   var horizon = 0, pitch = 0, roll = 0, _rawRoll = 0;
@@ -31,33 +30,17 @@ var artificialHorizon = (function() {
   }
 
   function calculatePitch(_roll) {
-    // var result = calcCache[_roll];
-    // if (!result) {
     var result = -Math.atan2(aZ, aX * Math.sin(_roll) + aY * Math.cos(_roll));
-    //   calcCache[_roll] = result;
-    // }
-
     return result;
   }
 
   function draw(timestamp) {
-    var cRoll = roll.valueOf();
-    var cPitch = pitch.valueOf();
-
-    var nRoll = Math.atan2(aX, aY);
-    var nPitch = calculatePitch(nRoll);
-
-    roll = signalFilter(nRoll, cRoll);
-    pitch = signalFilter(nPitch, cPitch);
+    roll = Math.atan2(aX, aY);
+    pitch = calculatePitch(roll);
 
     repaint();
 
     window.requestAnimationFrame(draw);
-  }
-
-  // Attempting to smooth motion readings
-  function signalFilter(newValue, currValue) {
-    return (newValue + currValue) / 2;
   }
 
   function repaint() {
