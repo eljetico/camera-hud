@@ -181,54 +181,6 @@ var artificialHorizon = (function() {
     context.stroke();
   }
 
-  function takePhoto(canvas) {
-    imageCapture.takePhoto()
-    .then(blob => createImageBitmap(blob))
-    .then(imageBitmap => {
-      drawCanvas(canvas, imageBitMap);
-    })
-    .catch(error => console.log(error));
-  }
-
-  function drawCanvas(canvas, img) {
-    canvas.width = getComputedStyle(canvas).width.split('px')[0];
-    canvas.height = getComputedStyle(canvas).height.split('px')[0];
-    let ratio  = Math.min(canvas.width / img.width, canvas.height / img.height);
-    let x = (canvas.width - img.width * ratio) / 2;
-    let y = (canvas.height - img.height * ratio) / 2;
-    canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
-    canvas.getContext('2d').drawImage(img, 0, 0, img.width, img.height,
-      x, y, img.width * ratio, img.height * ratio);
-  }
-
-  function drawDate(canvas) {
-    var ctx = canvas.getContext('2d');
-    var str = getDateString();
-    ctx.font = "15px ui-monospace";
-    ctx.fillStyle = strokeStyle;
-    ctx.textBaseline = "bottom";
-    ctx.textAlign = "right";
-    var text = ctx.measureText(str);
-    var width = text.width;
-    var x = canvas.width - 15;
-    var y = canvas.height - 15;
-    ctx.fillText(str, x, y);
-  }
-
-  function drawTime(canvas) {
-    var ctx = canvas.getContext('2d');
-    var str = getTimeString();
-    ctx.font = "15px ui-monospace";
-    ctx.fillStyle = strokeStyle;
-    ctx.textBaseline = "bottom";
-    ctx.textAlign = "right";
-    var text = ctx.measureText(str);
-    var width = text.width;
-    var x = canvas.width - 15;
-    var y = canvas.height - 35;
-    ctx.fillText(str, x, y);
-  }
-
   function drawScale(offset, scaleWidth) {
     // scaleWidth = limitHorizonScale ? radius / 1.5 : scaleWidth;
 
@@ -281,14 +233,6 @@ var artificialHorizon = (function() {
     aZ = _aZ;
   }
 
-  function radians(degs) {
-    return degs * Math.PI/180;
-  }
-
-  function updatePitchIndicator(pitch) {
-    pitchIndicator.textContent = pitch;
-  }
-
   function updateOrientations(evt) {
     if (!evt || evt.gamma == null) {
       return;
@@ -338,6 +282,62 @@ var artificialHorizon = (function() {
         alert("No Events");
         hud.textContent = "DENIED";
       }
+    };
+
+    function takePhoto(canvas) {
+      imageCapture.takePhoto()
+      .then(blob => createImageBitmap(blob))
+      .then(imageBitmap => {
+        drawCanvas(canvas, imageBitMap);
+      })
+      .catch(error => console.log(error));
+    };
+
+    function drawCanvas(canvas, img) {
+      canvas.width = getComputedStyle(canvas).width.split('px')[0];
+      canvas.height = getComputedStyle(canvas).height.split('px')[0];
+      let ratio  = Math.min(canvas.width / img.width, canvas.height / img.height);
+      let x = (canvas.width - img.width * ratio) / 2;
+      let y = (canvas.height - img.height * ratio) / 2;
+      canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+      canvas.getContext('2d').drawImage(img, 0, 0, img.width, img.height,
+        x, y, img.width * ratio, img.height * ratio);
+    };
+
+    function drawDate(canvas) {
+      var ctx = canvas.getContext('2d');
+      var str = getDateString();
+      ctx.font = "15px ui-monospace";
+      ctx.fillStyle = strokeStyle;
+      ctx.textBaseline = "bottom";
+      ctx.textAlign = "right";
+      var text = ctx.measureText(str);
+      var width = text.width;
+      var x = canvas.width - 15;
+      var y = canvas.height - 15;
+      ctx.fillText(str, x, y);
+    };
+
+    function drawTime(canvas) {
+      var ctx = canvas.getContext('2d');
+      var str = getTimeString();
+      ctx.font = "15px ui-monospace";
+      ctx.fillStyle = strokeStyle;
+      ctx.textBaseline = "bottom";
+      ctx.textAlign = "right";
+      var text = ctx.measureText(str);
+      var width = text.width;
+      var x = canvas.width - 15;
+      var y = canvas.height - 35;
+      ctx.fillText(str, x, y);
+    };
+
+    function radians(degs) {
+      return degs * Math.PI/180;
+    };
+
+    function updatePitchIndicator(pitch) {
+      pitchIndicator.textContent = pitch;
     };
 
     cameraTrigger.onclick = function() {
