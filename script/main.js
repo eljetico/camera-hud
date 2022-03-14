@@ -10,6 +10,8 @@ var artificialHorizon = (function() {
   var horizon = 0, pitch = 0, roll = 0, _rawPitch = 0, _rawRoll = 0;
   var aX = 0, aY = 0, aZ = 0;
 
+  var pitchConstant = 0; // calculated from canvas height
+
   var limitHorizonScale = true;
   var drawEnclosingCircle = false;
   var drawBoundingBox = true;
@@ -38,7 +40,7 @@ var artificialHorizon = (function() {
     roll = Math.atan2(aX, aY);
     pitch = calculatePitch(roll);
 
-    updatePitchIndicator(_rawPitch);
+    drawActualHorizonPosition();
 
     repaint();
 
@@ -150,6 +152,12 @@ var artificialHorizon = (function() {
     ctx.lineTo((col * 5) + 10, cY + (length / 2));
 
     ctx.stroke();
+  }
+
+  function drawActualHorizonPosition() {
+    var cY = canvasStatic.height / 2;
+    var yPos = (pitchConstant / Math.sin(radians(_rawPitch))) - cY;
+    updatePitchIndicator(yPos);
   }
 
   function drawFlatHorizonLine() {
@@ -400,6 +408,9 @@ var artificialHorizon = (function() {
       contextStatic = canvasStatic.getContext("2d");
       contextStatic.strokeStyle = strokeStyle;
       contextStatic.lineWidth = lineWidth;
+
+      // calculate pitchConstant based on canvasStatic height
+      pitchConstant = (canvasStatic.height / 2) * Math.sin(radians(90));
 
       aspectRatio = document.body.clientWidth / document.body.clientHeight;
       diameter = canvas.height;
