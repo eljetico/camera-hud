@@ -198,7 +198,7 @@ var artificialHorizon = (function() {
   function drawFlatHorizonLine() {
     var yPos = getHorizon(pitch); // pitch already in radians
 
-    var txt = (_rawPitch > 90) ? 'UP' : 'DWN';
+    var txt = (_rawPitch > 90) ? 'DWN' : 'UP';
     if (_rawPitch == 90) { txt = "><" };
 
     context.save();
