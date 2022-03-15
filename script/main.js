@@ -207,18 +207,22 @@ var artificialHorizon = (function() {
     ctx.lineWidth = 0.5;
     ctx.strokeStyle = "rgba(255, 255, 255, 0.3)";
 
+    var pos = 0;
+
     for (let i = 0; i < gradationCount; i++) {
       // verticals first
       ctx.beginPath();
-      ctx.moveTo(start, i);
-      ctx.lineTo(end, i);
+      ctx.moveTo(start, pos);
+      ctx.lineTo(end, pos);
       ctx.stroke();
 
       // horizontals
       ctx.beginPath();
-      ctx.moveTo(i, start);
-      ctx.lineTo(i, end);
+      ctx.moveTo(pos, start);
+      ctx.lineTo(pos, end);
       ctx.stroke();
+
+      pos += gradationWidth;
     }
 
     ctx.restore();
