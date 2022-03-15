@@ -196,7 +196,7 @@ var artificialHorizon = (function() {
   }
 
   function drawFlatHorizonLine() {
-    var yPos = getHorizon(pitch * Math.PI / 180);
+    var yPos = getHorizon(radians(pitch + 0));
 
     context.save();
     context.beginPath();
