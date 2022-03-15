@@ -436,8 +436,8 @@ var artificialHorizon = (function() {
       reseau.width = document.body.clientWidth;
       reseau.height = document.body.clientHeight;
       contextReseau = reseau.getContext("2d");
-      contextReseau.lineWidth = 0.5;
       contextReseau.strokeStyle = "rgba(255, 255, 255, 0.3)";
+      contextReseau.lineWidth = 0.5;
 
       note.textContent = canvasStatic.height;
 
