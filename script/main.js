@@ -191,14 +191,15 @@ var artificialHorizon = (function() {
     ctx.stroke();
   }
 
-  function updatePitchIndicator(yPos) {
-    pitchIndicator.textContent = yPos;
+  function updatePitchIndicator(txt) {
+    pitchIndicator.textContent = txt;
   }
 
   function drawFlatHorizonLine() {
     var yPos = getHorizon(pitch); // pitch already in radians
 
-    yPos = (_rawPitch > 90) ? yPos * 2 : yPos / 2;
+    var txt = (_rawPitch > 90) ? 'UP' : 'DWN';
+    if (_rawPitch == 90) { txt = "><" };
 
     context.save();
     context.beginPath();
@@ -207,6 +208,7 @@ var artificialHorizon = (function() {
     context.stroke();
 
     drawHorizonConnector(yPos);
+    updatePitchIndicator(txt);
 
     context.restore();
   }
