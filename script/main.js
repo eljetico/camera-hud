@@ -114,7 +114,8 @@ var artificialHorizon = (function() {
     // draw scale
     // drawScaleBars(scaleWidth);
 
-    drawFlatHorizonLine();
+    // drawFlatHorizonLine();
+    drawReseauPlate();
 
     context.restore();
   }
@@ -195,6 +196,34 @@ var artificialHorizon = (function() {
     pitchIndicator.textContent = txt;
   }
 
+  function drawReseauPlate(ctx) {
+    ctx.save();
+    var gradationWidth = 20;
+    var gradationCount = Math.round(diameter / gradationWidth) + 1;
+
+    var start = -diameter;
+    var end = 2 * diameter;
+
+    ctx.lineWidth = 0.5;
+    ctx.strokeStyle = "rgba(255, 255, 255, 0.3)";
+
+    for (let i = 0; i < gradationCount; i++) {
+      // verticals first
+      ctx.beginPath();
+      ctx.moveTo(start, i);
+      ctx.lineTo(end, i);
+      ctx.stroke();
+
+      // horizontals
+      ctx.beginPath();
+      ctx.moveTo(i, start);
+      ctx.lineTo(i, end);
+      ctx.stroke();
+    }
+
+    ctx.restore();
+  }
+
   function drawFlatHorizonLine() {
     var yPos = getHorizon(pitch); // pitch already in radians
 
@@ -207,7 +236,7 @@ var artificialHorizon = (function() {
     context.lineTo(2 * diameter, yPos);
     context.stroke();
 
-    drawHorizonConnector(yPos);
+    // drawHorizonConnector(yPos);
     updatePitchIndicator(txt);
 
     context.restore();
