@@ -198,6 +198,8 @@ var artificialHorizon = (function() {
   function drawFlatHorizonLine() {
     var yPos = getHorizon(pitch); // pitch already in radians
 
+    yPos = (_rawPitch > 90) ? yPos * 2 : yPos / 2;
+
     context.save();
     context.beginPath();
     context.moveTo(-diameter, yPos);
