@@ -197,7 +197,7 @@ var artificialHorizon = (function() {
   }
 
   function drawReseauPlate(ctx) {
-    ctx.save();
+    // ctx.save();
 
     var gradationWidth = 40;
     var gradationCount = (reseau.height / gradationWidth) + 1;
@@ -218,7 +218,7 @@ var artificialHorizon = (function() {
       pos += gradationWidth;
     }
 
-    ctx.restore();
+    // ctx.restore();
   }
 
   function drawFlatHorizonLine() {
