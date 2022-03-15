@@ -203,7 +203,7 @@ var artificialHorizon = (function() {
 
     var pos = 0;
 
-    for (let i = 0; w <= gradationCount; i++) {
+    for (let i = 0; i <= gradationCount; i++) {
       ctx.beginPath();
       ctx.moveTo(0, pos);
       ctx.lineTo(reseau.width, pos);
