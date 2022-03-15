@@ -204,7 +204,6 @@ var artificialHorizon = (function() {
 
     var pos = 0;
 
-    ctx.beginPath();
     ctx.strokeStyle = "rgba(255, 255, 255, 0.3)";
     ctx.lineWidth = 0.5;
 
