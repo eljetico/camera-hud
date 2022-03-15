@@ -198,7 +198,7 @@ var artificialHorizon = (function() {
 
   function drawReseauPlate(ctx) {
     ctx.save();
-    var gradationWidth = 20;
+    var gradationWidth = 40;
     var gradationCount = Math.round(diameter / gradationWidth) + 1;
 
     var start = -diameter;
@@ -216,13 +216,15 @@ var artificialHorizon = (function() {
       ctx.lineTo(end, pos);
       ctx.stroke();
 
-      // horizontals
-      ctx.beginPath();
-      ctx.moveTo(pos, start);
-      ctx.lineTo(pos, end);
-      ctx.stroke();
-
       pos += gradationWidth;
+
+      // horizontals
+      // ctx.beginPath();
+      // ctx.moveTo(pos, start);
+      // ctx.lineTo(pos, end);
+      // ctx.stroke();
+      //
+      // pos += gradationWidth;
     }
 
     ctx.restore();
