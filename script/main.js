@@ -390,7 +390,7 @@ var artificialHorizon = (function() {
       // Finally, grayscale the image
       var grayImageData = toGrayscale(cameraSensor);
       cameraSensorContext.clearRect(0, 0, nX, nY);
-      cameraSensorContext.drawImage(grayImageData, 0, 0);
+      cameraSensorContext.putImageData(grayImageData, 0, 0);
 
       contextStatic.restore();
 
