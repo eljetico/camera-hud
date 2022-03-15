@@ -114,7 +114,7 @@ var artificialHorizon = (function() {
     // draw scale
     // drawScaleBars(scaleWidth);
 
-    drawFlatHorizonLine();
+    // drawFlatHorizonLine();
 
     context.restore();
   }
@@ -150,7 +150,7 @@ var artificialHorizon = (function() {
 
     contextStatic.stroke();
 
-    drawBoundingBoxLines(contextStatic);
+    // drawBoundingBoxLines(contextStatic);
     contextStatic.restore();
   }
 
