@@ -199,6 +199,10 @@ var artificialHorizon = (function() {
     updatePitchIndicator(yPos);
   }
 
+  function updatePitchIndicator(yPos) {
+    pitchIndicator.textContent = yPos;
+  }
+
   function drawFlatHorizonLine() {
     var yPos = getHorizon(pitch + 0 * Math.PI / 180);
 
