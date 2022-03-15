@@ -4,7 +4,7 @@ var artificialHorizon = (function() {
   var cameraView, cameraOutput, cameraSensor, cameraTrigger;
   var canvas, context, canvasStatic, contextStatic, hud, pitchIndicator;
   var strokeStyle = "rgba(255, 255, 255, 0.6)";
-  var lineWidth = 2;
+  var lineWidth = 1;
 
   var aspectRatio = 0, diameter = 0, radius = 0;
   var horizon = 0, pitch = 0, roll = 0, _rawPitch = 0, _rawRoll = 0;
@@ -16,7 +16,7 @@ var artificialHorizon = (function() {
   var drawEnclosingCircle = false;
   var drawBoundingBox = true;
 
-  var previousTs;
+  var frameWidth = 10;
 
   function cameraStart() {
     navigator.mediaDevices
@@ -328,35 +328,42 @@ var artificialHorizon = (function() {
 
     cameraTrigger.onclick = function() {
       // ORIGINAL PHOTO
-      cameraSensor.width = cameraView.videoWidth;
-      cameraSensor.height = cameraView.videoHeight;
+      cameraSensor.width = cameraView.videoWidth + (frameWidth * 2);
+      cameraSensor.height = cameraView.videoHeight + (frameWidth * 2);
       var cameraSensorContext = cameraSensor.getContext("2d");
-      cameraSensorContext.drawImage(cameraView, 0, 0);
+
+      // draw frame
+      cameraSensorContext.strokeStyle = "black";
+      cameraSensorContext.lineWidth = frameWidth;
+      cameraSensorContext.stroke();
+
+      // add image
+      cameraSensorContext.drawImage(cameraView, frameWidth, frameWidth);
 
       // HORIZON AND SCALE
       // Need to scale the canvas to camera-size and center it in the
       // image canvas
-      var hFactor = cameraSensor.width / canvas.width; // will be square
-      var vFactor = cameraSensor.height / canvas.height;
+      var hFactor = cameraView.videoWidth / canvas.width; // will be square
+      var vFactor = cameraView.videoHeight / canvas.height;
 
       context.save();
       context.scale(hFactor, hFactor);
 
-      var nX = (cameraSensor.width - canvas.width) / 2;
-      var nY = (cameraSensor.height - canvas.height) / 2;
+      var nX = ((cameraView.videoWidth - canvas.width) / 2) + frameWidth;
+      var nY = ((cameraView.videoHeight - canvas.height) / 2) + frameWidth;
 
       cameraSensorContext.drawImage(canvas, nX, nY);
       context.restore();
 
       // STATIC HUD
-      hFactor = cameraSensor.width / canvasStatic.width;
-      vFactor = cameraSensor.height / canvasStatic.height;
+      hFactor = cameraView.videoWidth / canvasStatic.width;
+      vFactor = cameraView.videoHeight / canvasStatic.height;
 
       contextStatic.save();
 
       contextStatic.scale(hFactor, vFactor);
-      nX = (cameraSensor.width - canvasStatic.width) / 2;
-      nY = (cameraSensor.height - canvasStatic.height) / 2;
+      nX = ((cameraView.videoWidth - canvasStatic.width) / 2) + frameWidth;
+      nY = ((cameraView.videoHeight - canvasStatic.height) / 2) + frameWidth;
 
       cameraSensorContext.drawImage(canvasStatic, nX, nY);
       drawTime(cameraSensor); // we don't want these in UI
