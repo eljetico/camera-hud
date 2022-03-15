@@ -2,7 +2,7 @@ var artificialHorizon = (function() {
   var constraints = { video: { facingMode: "environment" }, audio: false };
 
   var cameraView, cameraOutput, cameraSensor, cameraTrigger;
-  var canvas, context, canvasStatic, contextStatic, hud, pitchIndicator;
+  var canvas, context, canvasStatic, contextStatic, reseau, reseauContext, hud, pitchIndicator;
   var strokeStyle = "rgba(255, 255, 255, 0.6)";
   var lineWidth = 1;
 
@@ -115,7 +115,7 @@ var artificialHorizon = (function() {
     // drawScaleBars(scaleWidth);
 
     // drawFlatHorizonLine();
-    drawReseauPlate(context);
+    drawReseauPlate(contextReseau);
 
     context.restore();
   }
@@ -199,20 +199,14 @@ var artificialHorizon = (function() {
   function drawReseauPlate(ctx) {
     ctx.save();
     var gradationWidth = 40;
-    var gradationCount = Math.round(diameter * 2/ gradationWidth) + 1;
-
-    var start = -diameter;
-    var end = 2 * diameter;
-
-    ctx.lineWidth = 0.5;
-    ctx.strokeStyle = "rgba(255, 255, 255, 0.3)";
+    var gradationCount = (reseau.height / gradationWidth) + 1;
 
     var pos = 0;
 
-    for (let i = 0; i < gradationCount; i++) {
+    for (let i = 0; w <= gradationCount; i++) {
       ctx.beginPath();
-      ctx.moveTo(end, pos + (diameter * 2));
-      ctx.lineTo(start, pos + (diameter * 2));
+      ctx.moveTo(0, pos);
+      ctx.lineTo(reseau.width, pos);
       ctx.stroke();
 
       pos += gradationWidth;
@@ -438,6 +432,13 @@ var artificialHorizon = (function() {
       contextStatic = canvasStatic.getContext("2d");
       contextStatic.strokeStyle = strokeStyle;
       contextStatic.lineWidth = lineWidth;
+
+      reseau = document.getElementById("reseau");
+      reseau.width = document.body.clientWidth;
+      reseau.height = document.body.clientHeight;
+      contextReseau = reseau.getContext("2d");
+      contextReseau.lineWidth = 0.5;
+      contextReseau.strokeStyle = "rgba(255, 255, 255, 0.3)";
 
       note.textContent = canvasStatic.height;
 
