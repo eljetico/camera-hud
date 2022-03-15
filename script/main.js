@@ -2,20 +2,21 @@ var artificialHorizon = (function() {
   var constraints = { video: { facingMode: "environment" }, audio: false };
 
   var cameraView, cameraOutput, cameraSensor, cameraTrigger;
-  var canvas, context, canvasStatic, contextStatic, hud;
+  var canvas, context, canvasStatic, contextStatic, hud, pitchIndicator;
   var strokeStyle = "rgba(255, 255, 255, 0.6)";
-  var lineWidth = 2;
-  var calcCache = {};
+  var lineWidth = 1;
 
   var aspectRatio = 0, diameter = 0, radius = 0;
-  var horizon = 0, pitch = 0, roll = 0, _rawRoll = 0;
+  var horizon = 0, pitch = 0, roll = 0, _rawPitch = 0, _rawRoll = 0;
   var aX = 0, aY = 0, aZ = 0;
+
+  var pitchConstant = 0; // calculated from canvas height
 
   var limitHorizonScale = true;
   var drawEnclosingCircle = false;
   var drawBoundingBox = true;
 
-  var previousTs;
+  var frameWidth = 10;
 
   function cameraStart() {
     navigator.mediaDevices
@@ -31,26 +32,56 @@ var artificialHorizon = (function() {
   }
 
   function calculatePitch(_roll) {
-    var result = calcCache[_roll];
-    if (!result) {
-      result = -Math.atan2(aZ, aX * Math.sin(_roll) + aY * Math.cos(_roll));
-      calcCache[_roll] = result;
-    }
-
+    var result = -Math.atan2(aZ, aX * Math.sin(_roll) + aY * Math.cos(_roll));
     return result;
   }
 
   function draw(timestamp) {
-    if (previousTs !== timestamp) {
-      roll = Math.atan2(aX, aY);
-      pitch = calculatePitch(roll);
+    roll = Math.atan2(aX, aY);
+    pitch = calculatePitch(roll);
 
-      previousTs = timestamp;
-
-      repaint();
-    }
+    repaint();
 
     window.requestAnimationFrame(draw);
+  }
+
+  function drawCanvas(canvas, img) {
+    canvas.width = getComputedStyle(canvas).width.split('px')[0];
+    canvas.height = getComputedStyle(canvas).height.split('px')[0];
+    let ratio  = Math.min(canvas.width / img.width, canvas.height / img.height);
+    let x = (canvas.width - img.width * ratio) / 2;
+    let y = (canvas.height - img.height * ratio) / 2;
+    canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+    canvas.getContext('2d').drawImage(img, 0, 0, img.width, img.height,
+      x, y, img.width * ratio, img.height * ratio);
+  }
+
+  function drawDate(canvas) {
+    var ctx = canvas.getContext('2d');
+    var str = getDateString();
+    ctx.font = "15px ui-monospace";
+    ctx.fillStyle = strokeStyle;
+    ctx.textBaseline = "bottom";
+    ctx.textAlign = "right";
+    var text = ctx.measureText(str);
+    var width = text.width;
+    var x = canvas.width - 15;
+    var y = canvas.height - 15;
+    ctx.fillText(str, x, y);
+  }
+
+  function drawTime(canvas) {
+    var ctx = canvas.getContext('2d');
+    var str = getTimeString();
+    ctx.font = "15px ui-monospace";
+    ctx.fillStyle = strokeStyle;
+    ctx.textBaseline = "bottom";
+    ctx.textAlign = "right";
+    var text = ctx.measureText(str);
+    var width = text.width;
+    var x = canvas.width - 15;
+    var y = canvas.height - 35;
+    ctx.fillText(str, x, y);
   }
 
   function repaint() {
@@ -160,8 +191,15 @@ var artificialHorizon = (function() {
     ctx.stroke();
   }
 
+  function updatePitchIndicator(txt) {
+    pitchIndicator.textContent = txt;
+  }
+
   function drawFlatHorizonLine() {
-    var yPos = getHorizon(pitch + 0 * Math.PI / 180);
+    var yPos = getHorizon(pitch); // pitch already in radians
+
+    var txt = (_rawPitch > 90) ? 'DWN' : 'UP';
+    if (_rawPitch == 90) { txt = "><" };
 
     context.save();
     context.beginPath();
@@ -170,6 +208,7 @@ var artificialHorizon = (function() {
     context.stroke();
 
     drawHorizonConnector(yPos);
+    updatePitchIndicator(txt);
 
     context.restore();
   }
@@ -208,6 +247,10 @@ var artificialHorizon = (function() {
     context.restore();
   }
 
+  function radians(degs) {
+    return degs * Math.PI / 180;
+  }
+
   function updateAccelerations(evt) {
     if (!evt || !evt.accelerationIncludingGravity) {
       return;
@@ -220,10 +263,8 @@ var artificialHorizon = (function() {
     var _aZ = accelData.z;
 
     if (aspectRatio > 1 && _rawRoll > 0) {
-
       aX = _aY;
       aY = -_aX;
-
     } else if (aspectRatio > 1 && _rawRoll <= 0) {
       aX = -_aY;
       aY = _aX;
@@ -241,6 +282,7 @@ var artificialHorizon = (function() {
     }
 
     _rawRoll = evt.gamma;
+    _rawPitch = evt.beta;
   }
 
   function getDateString() {
@@ -259,8 +301,8 @@ var artificialHorizon = (function() {
     return hr + "" + mn + "" + ss;
   }
 
-  function getHorizon(pitch) {
-    return Math.sin(pitch) * radius;
+  function getHorizon(radians) {
+    return Math.sin(radians) * radius;
   }
 
   function pad2(number) {
@@ -284,85 +326,47 @@ var artificialHorizon = (function() {
       }
     };
 
-    function takePhoto(canvas) {
-      imageCapture.takePhoto()
-      .then(blob => createImageBitmap(blob))
-      .then(imageBitmap => {
-        drawCanvas(canvas, imageBitMap);
-      })
-      .catch(error => console.log(error));
-    };
-
-    function drawCanvas(canvas, img) {
-      canvas.width = getComputedStyle(canvas).width.split('px')[0];
-      canvas.height = getComputedStyle(canvas).height.split('px')[0];
-      let ratio  = Math.min(canvas.width / img.width, canvas.height / img.height);
-      let x = (canvas.width - img.width * ratio) / 2;
-      let y = (canvas.height - img.height * ratio) / 2;
-      canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
-      canvas.getContext('2d').drawImage(img, 0, 0, img.width, img.height,
-        x, y, img.width * ratio, img.height * ratio);
-    };
-
-    function drawDate(canvas) {
-      var ctx = canvas.getContext('2d');
-      var str = getDateString();
-      ctx.font = "15px ui-monospace";
-      ctx.fillStyle = strokeStyle;
-      ctx.textBaseline = "bottom";
-      ctx.textAlign = "right";
-      var text = ctx.measureText(str);
-      var width = text.width;
-      var x = canvas.width - 15;
-      var y = canvas.height - 15;
-      ctx.fillText(str, x, y);
-    };
-
-    function drawTime(canvas) {
-      var ctx = canvas.getContext('2d');
-      var str = getTimeString();
-      ctx.font = "15px ui-monospace";
-      ctx.fillStyle = strokeStyle;
-      ctx.textBaseline = "bottom";
-      ctx.textAlign = "right";
-      var text = ctx.measureText(str);
-      var width = text.width;
-      var x = canvas.width - 15;
-      var y = canvas.height - 35;
-      ctx.fillText(str, x, y);
-    };
-
     cameraTrigger.onclick = function() {
       // ORIGINAL PHOTO
-      cameraSensor.width = cameraView.videoWidth;
-      cameraSensor.height = cameraView.videoHeight;
+      cameraSensor.width = cameraView.videoWidth + (frameWidth * 2);
+      cameraSensor.height = cameraView.videoHeight + (frameWidth * 2);
       var cameraSensorContext = cameraSensor.getContext("2d");
-      cameraSensorContext.drawImage(cameraView, 0, 0);
+
+      // draw frame
+      cameraSensorContext.strokeStyle = "black";
+      cameraSensorContext.lineWidth = frameWidth;
+      cameraSensorContext.strokeRect(0, 0, cameraSensor.width, cameraSensor.height);
+
+      // add image
+      cameraSensorContext.save();
+      // cameraSensorContext.filter = "grayscale(100%) contrast(20%)";
+      cameraSensorContext.drawImage(cameraView, frameWidth, frameWidth);
+      cameraSensorContext.restore();
 
       // HORIZON AND SCALE
       // Need to scale the canvas to camera-size and center it in the
       // image canvas
-      var hFactor = cameraSensor.width / canvas.width; // will be square
-      var vFactor = cameraSensor.height / canvas.height;
+      var hFactor = cameraView.videoWidth / canvas.width; // will be square
+      var vFactor = cameraView.videoHeight / canvas.height;
 
       context.save();
       context.scale(hFactor, hFactor);
 
-      var nX = (cameraSensor.width - canvas.width) / 2;
-      var nY = (cameraSensor.height - canvas.height) / 2;
+      var nX = ((cameraView.videoWidth - canvas.width) / 2) + frameWidth;
+      var nY = ((cameraView.videoHeight - canvas.height) / 2) + frameWidth;
 
       cameraSensorContext.drawImage(canvas, nX, nY);
       context.restore();
 
       // STATIC HUD
-      hFactor = cameraSensor.width / canvasStatic.width;
-      vFactor = cameraSensor.height / canvasStatic.height;
+      hFactor = cameraView.videoWidth / canvasStatic.width;
+      vFactor = cameraView.videoHeight / canvasStatic.height;
 
       contextStatic.save();
 
       contextStatic.scale(hFactor, vFactor);
-      nX = (cameraSensor.width - canvasStatic.width) / 2;
-      nY = (cameraSensor.height - canvasStatic.height) / 2;
+      nX = ((cameraView.videoWidth - canvasStatic.width) / 2) + frameWidth;
+      nY = ((cameraView.videoHeight - canvasStatic.height) / 2) + frameWidth;
 
       cameraSensorContext.drawImage(canvasStatic, nX, nY);
       drawTime(cameraSensor); // we don't want these in UI
@@ -387,6 +391,8 @@ var artificialHorizon = (function() {
       cameraStart();
 
       hud = document.getElementById("hud");
+      pitchIndicator = document.getElementById("pitch");
+      note = document.getElementById("note");
 
       canvas = document.getElementById("horizon");
       context = canvas.getContext("2d");
@@ -399,6 +405,11 @@ var artificialHorizon = (function() {
       contextStatic = canvasStatic.getContext("2d");
       contextStatic.strokeStyle = strokeStyle;
       contextStatic.lineWidth = lineWidth;
+
+      note.textContent = canvasStatic.height;
+
+      // calculate pitchConstant based on canvasStatic height
+      pitchConstant = (canvasStatic.height / 2) * Math.sin(radians(90)); // use degrees here
 
       aspectRatio = document.body.clientWidth / document.body.clientHeight;
       diameter = canvas.height;
