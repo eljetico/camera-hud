@@ -198,8 +198,6 @@ var artificialHorizon = (function() {
 
   function drawReseauPlate(ctx) {
     ctx.save();
-    ctx.lineWidth = 0.5;
-    ctx.strokeStyle = "rgba(255, 255, 255, 0.3)";
 
     var gradationWidth = 40;
     var gradationCount = (reseau.height / gradationWidth) + 1;
@@ -208,11 +206,15 @@ var artificialHorizon = (function() {
 
     for (let i = 0; i <= gradationCount; i++) {
       ctx.beginPath();
+      ctx.lineWidth = 0.5;
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.3)";
       ctx.moveTo(0, pos);
       ctx.lineTo(reseau.width, pos);
       ctx.stroke();
 
       ctx.beginPath();
+      ctx.lineWidth = 0.5;
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.3)";
       ctx.moveTo(pos, 0);
       ctx.lineTo(pos, reseau.height);
       ctx.stroke();
