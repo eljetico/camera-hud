@@ -214,7 +214,7 @@ var artificialHorizon = (function() {
 
   function getActualHorizonPosition() {
     var l = Math.round(tempGetLength(_rawPitch));
-    var yPos = (_rawPitch > 90) ? screenCenterY + l : screenCenterY - l;
+    var yPos = (_rawPitch > 90) ? -l : l;
 
     return yPos;
   }
