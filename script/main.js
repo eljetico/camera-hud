@@ -338,7 +338,10 @@ var artificialHorizon = (function() {
       cameraSensorContext.strokeRect(0, 0, cameraSensor.width, cameraSensor.height);
 
       // add image
+      cameraSensorContext.save();
+      cameraSensorContext.filter = "grayscale(100%) contrast(20%)";
       cameraSensorContext.drawImage(cameraView, frameWidth, frameWidth);
+      cameraSensorContext.restore();
 
       // HORIZON AND SCALE
       // Need to scale the canvas to camera-size and center it in the
