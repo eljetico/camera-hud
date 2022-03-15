@@ -212,17 +212,9 @@ var artificialHorizon = (function() {
     return screenCenterY * (Math.sin(radians(angle))) / Math.sin(radians(90));
   }
 
-<<<<<<< HEAD
-  function getActualHorizonPosition() {
-    var l = Math.round(tempGetLength(_rawPitch));
-    var yPos = (_rawPitch > 90) ? -l : l;
-
-    return yPos;
-=======
   function drawActualHorizonPosition() {
     var l = tempGetLength(_rawPitch);
     updatePitchIndicator(l);
->>>>>>> parent of 4c0ec36 (Log rawPitch value with new length)
   }
 
   function updatePitchIndicator(yPos) {
