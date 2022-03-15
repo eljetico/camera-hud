@@ -387,6 +387,7 @@ var artificialHorizon = (function() {
 
       hud = document.getElementById("hud");
       pitchIndicator = document.getElementById("pitch");
+      note = document.getElementById("note");
 
       canvas = document.getElementById("horizon");
       context = canvas.getContext("2d");
@@ -400,7 +401,7 @@ var artificialHorizon = (function() {
       contextStatic.strokeStyle = strokeStyle;
       contextStatic.lineWidth = lineWidth;
 
-      alert("Screen height: " + canvasStatic.height);
+      note.textContent = canvasStatic.height;
 
       // calculate pitchConstant based on canvasStatic height
       pitchConstant = (canvasStatic.height / 2) * Math.sin(radians(90)); // use degrees here
