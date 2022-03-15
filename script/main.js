@@ -130,6 +130,19 @@ var artificialHorizon = (function() {
     // drawScale(6, scaleWidth * 0.1);
   }
 
+  function toGrayscale(canvas) {
+    var ctx = canvas.getContext("2d");
+    var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+    for (var i = 0; i < imageData.data.length; i+=4) {
+      var luma = Math.floor(imageData.data[i] * 0.3 +
+        imageData.data[i+1] * 0.59 +
+        imageData.data[i+2] * 0.11);
+        imageData.data[i] = imageData.data[i+1] = imageData.data[i+2] = luma;
+        imageData.data[i+3] = 255;
+    }
+  }
+
   // Static HUD is always full screen
   function drawStaticHud() {
     drawCrosshair();
@@ -371,6 +384,9 @@ var artificialHorizon = (function() {
       cameraSensorContext.drawImage(canvasStatic, nX, nY);
       drawTime(cameraSensor); // we don't want these in UI
       drawDate(cameraSensor);
+
+      // Finally, grayscale the image
+      toGrayscale(cameraSensor);
 
       contextStatic.restore();
 
