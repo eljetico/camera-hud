@@ -214,7 +214,7 @@ var artificialHorizon = (function() {
 
   function getActualHorizonPosition() {
     var l = Math.round(tempGetLength(_rawPitch));
-    var yPos = (_rawPitch > 90) ? screenCenterY - l : screenCenterY + l;
+    var yPos = (_rawPitch > 90) ? screenCenterY + l : screenCenterY - l;
 
     return yPos;
   }
@@ -430,7 +430,7 @@ var artificialHorizon = (function() {
       diameter = canvas.height;
       radius = diameter / 2;
 
-      drawStaticHud(screenCenterY);
+      // drawStaticHud(screenCenterY);
 
       run();
     }
