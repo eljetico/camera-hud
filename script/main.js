@@ -335,7 +335,7 @@ var artificialHorizon = (function() {
       // draw frame
       cameraSensorContext.strokeStyle = "black";
       cameraSensorContext.lineWidth = frameWidth;
-      cameraSensorContext.stroke();
+      cameraSensorContext.strokeRect(0, 0, cameraSensor.width, cameraSensor.height);
 
       // add image
       cameraSensorContext.drawImage(cameraView, frameWidth, frameWidth);
