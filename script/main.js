@@ -144,8 +144,9 @@ var artificialHorizon = (function() {
 
   function drawActualHorizonPosition(yPos) {
     contextStatic.save();
-    contextStatic.moveTo(20, yPos);
-    contextStatic.lineTo(100, yPos);
+    contextStatic.beginPath();
+    contextStatic.moveTo(10, yPos);
+    contextStatic.lineTo(200, yPos);
     contextStatic.strokeStyle = "orange";
     contextStatic.stroke();
     contextStatic.restore();
@@ -213,7 +214,7 @@ var artificialHorizon = (function() {
 
   function getActualHorizonPosition() {
     var l = Math.round(tempGetLength(_rawPitch));
-    var yPos = (_rawPitch > 90) ? screenCenterY + l : screenCenterY - l;
+    var yPos = (_rawPitch > 90) ? screenCenterY - l : screenCenterY + l;
 
     return yPos;
   }
