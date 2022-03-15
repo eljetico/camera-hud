@@ -41,8 +41,6 @@ var artificialHorizon = (function() {
     roll = Math.atan2(aX, aY);
     pitch = calculatePitch(roll);
 
-    drawActualHorizonPosition();
-
     repaint();
 
     window.requestAnimationFrame(draw);
@@ -119,6 +117,8 @@ var artificialHorizon = (function() {
 
     drawFlatHorizonLine();
 
+    drawStaticHud(getActualHorizonPosition());
+
     context.restore();
   }
 
@@ -134,8 +134,21 @@ var artificialHorizon = (function() {
   }
 
   // Static HUD is always full screen
-  function drawStaticHud() {
+  function drawStaticHud(horizonPosition) {
+    contextStatic.clearRect(0, 0, canvasStatic.width, canvasStatic.width);
+
     drawCrosshair();
+    updatePitchIndicator("P: " + Math.round(_rawPitch));
+    drawActualHorizonPosition(horizonPosition);
+  }
+
+  function drawActualHorizonPosition(yPos) {
+    contextStatic.save();
+    contextStatic.moveTo(20, yPos);
+    contextStatic.lineTo(100, yPos);
+    contextStatic.strokeStyle = "orange";
+    contextStatic.stroke();
+    contextStatic.restore();
   }
 
   function drawCrosshair() {
@@ -198,9 +211,11 @@ var artificialHorizon = (function() {
     return screenCenterY * (Math.sin(radians(angle))) / Math.sin(radians(90));
   }
 
-  function drawActualHorizonPosition() {
+  function getActualHorizonPosition() {
     var l = Math.round(tempGetLength(_rawPitch));
-    updatePitchIndicator("P: " + Math.round(_rawPitch) + "|L: " + l);
+    var yPos = (_rawPitch > 90) ? screenCenterY + l : screenCenter - l;
+
+    return yPos;
   }
 
   function updatePitchIndicator(yPos) {
@@ -414,7 +429,7 @@ var artificialHorizon = (function() {
       diameter = canvas.height;
       radius = diameter / 2;
 
-      drawStaticHud();
+      drawStaticHud(screenCenterY);
 
       run();
     }
