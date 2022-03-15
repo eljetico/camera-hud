@@ -398,7 +398,7 @@ var artificialHorizon = (function() {
       pitchConstant = (canvasStatic.height / 2) * Math.sin(radians(90)); // use degrees here
 
       aspectRatio = document.body.clientWidth / document.body.clientHeight;
-      diameter = canvas.height;
+      diameter = canvasStatic.height;
       radius = diameter / 2;
 
       drawStaticHud();
