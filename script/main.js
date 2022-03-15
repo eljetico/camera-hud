@@ -204,20 +204,19 @@ var artificialHorizon = (function() {
 
     var pos = 0;
 
+    ctx.beginPath();
+
     for (let i = 0; i <= gradationCount; i++) {
-      ctx.beginPath();
       ctx.moveTo(0, pos);
       ctx.lineTo(reseau.width, pos);
-      ctx.stroke();
 
-      ctx.beginPath();
       ctx.moveTo(pos, 0);
       ctx.lineTo(pos, reseau.height);
-      ctx.stroke();
 
       pos += gradationWidth;
     }
 
+    ctx.stroke();
     // ctx.restore();
   }
 
