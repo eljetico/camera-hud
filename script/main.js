@@ -196,7 +196,7 @@ var artificialHorizon = (function() {
   }
 
   function drawFlatHorizonLine() {
-    var yPos = 0 - getHorizon(pitch + 0 * Math.PI / 180);
+    var yPos = getHorizon(pitch * Math.PI / 180);
 
     context.save();
     context.beginPath();
@@ -297,9 +297,8 @@ var artificialHorizon = (function() {
     return hr + "" + mn + "" + ss;
   }
 
-  function getHorizon(pitch) {
-    // Pin horizon attempts:
-    return Math.sin(pitch) * radius;
+  function getHorizon(radians) {
+    return Math.sin(radians) * radius;
   }
 
   function pad2(number) {
