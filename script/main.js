@@ -208,6 +208,10 @@ var artificialHorizon = (function() {
     context.restore();
   }
 
+  function radians(degs) {
+    return degs * Math.PI / 180;
+  }
+
   function updateAccelerations(evt) {
     if (!evt || !evt.accelerationIncludingGravity) {
       return;
