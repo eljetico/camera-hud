@@ -141,6 +141,8 @@ var artificialHorizon = (function() {
         imageData.data[i] = imageData.data[i+1] = imageData.data[i+2] = luma;
         imageData.data[i+3] = 255;
     }
+
+    return imageData;
   }
 
   // Static HUD is always full screen
@@ -386,7 +388,8 @@ var artificialHorizon = (function() {
       drawDate(cameraSensor);
 
       // Finally, grayscale the image
-      toGrayscale(cameraSensor);
+      var grayImageData = toGrayscale(cameraSensor);
+      cameraSensorContext.drawImage(canvasStatic, 0, 0);
 
       contextStatic.restore();
 
