@@ -208,15 +208,11 @@ var artificialHorizon = (function() {
       ctx.beginPath();
       ctx.moveTo(0, pos);
       ctx.lineTo(reseau.width, pos);
-      ctx.lineWidth = 0.5;
-      ctx.strokeStyle = "rgba(255, 255, 255, 0.3)";
       ctx.stroke();
 
       ctx.beginPath();
       ctx.moveTo(pos, 0);
       ctx.lineTo(pos, reseau.height);
-      ctx.lineWidth = 0.5;
-      ctx.strokeStyle = "rgba(255, 255, 255, 0.3)";
       ctx.stroke();
 
       pos += gradationWidth;
@@ -440,8 +436,8 @@ var artificialHorizon = (function() {
       reseau.width = document.body.clientWidth;
       reseau.height = document.body.clientHeight;
       contextReseau = reseau.getContext("2d");
-      // contextReseau.lineWidth = 0.5;
-      // contextReseau.strokeStyle = "rgba(255, 255, 255, 0.3)";
+      contextReseau.lineWidth = 0.5;
+      contextReseau.strokeStyle = "rgba(255, 255, 255, 0.3)";
 
       note.textContent = canvasStatic.height;
 
