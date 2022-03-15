@@ -199,8 +199,8 @@ var artificialHorizon = (function() {
   }
 
   function drawActualHorizonPosition() {
-    var l = tempGetLength(_rawPitch);
-    updatePitchIndicator(l);
+    var l = Math.round(tempGetLength(_rawPitch));
+    updatePitchIndicator("P: " + Math.round(_rawPitch) + "|L: " + l);
   }
 
   function updatePitchIndicator(yPos) {
