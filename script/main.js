@@ -339,7 +339,7 @@ var artificialHorizon = (function() {
 
       // add image
       cameraSensorContext.save();
-      cameraSensorContext.filter = "grayscale(100%) contrast(20%)";
+      // cameraSensorContext.filter = "grayscale(100%) contrast(20%)";
       cameraSensorContext.drawImage(cameraView, frameWidth, frameWidth);
       cameraSensorContext.restore();
 
