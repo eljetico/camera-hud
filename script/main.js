@@ -210,15 +210,13 @@ var artificialHorizon = (function() {
     var pos = 0;
 
     for (let i = 0; i < gradationCount; i++) {
-      // verticals first
       ctx.beginPath();
-      ctx.moveTo(0, pos);
-      ctx.lineTo(diameter, pos);
+      ctx.moveTo(end, pos);
+      ctx.lineTo(start, pos);
       ctx.stroke();
 
       pos += gradationWidth;
 
-      // horizontals
       // ctx.beginPath();
       // ctx.moveTo(pos, start);
       // ctx.lineTo(pos, end);
