@@ -27,7 +27,6 @@ canvas#horizon {
 
 canvas#hudStatic, canvas#reseau {
 	position: absolute;
-	z-index: 3;
 }
 
 #hud, #pitch, #note {

@@ -212,14 +212,12 @@ var artificialHorizon = (function() {
       ctx.lineTo(reseau.width, pos);
       ctx.stroke();
 
-      pos += gradationWidth;
+      ctx.beginPath();
+      ctx.moveTo(pos, 0);
+      ctx.lineTo(pos, reseau.height);
+      ctx.stroke();
 
-      // ctx.beginPath();
-      // ctx.moveTo(pos, start);
-      // ctx.lineTo(pos, end);
-      // ctx.stroke();
-      //
-      // pos += gradationWidth;
+      pos += gradationWidth;
     }
 
     ctx.restore();
