@@ -198,6 +198,9 @@ var artificialHorizon = (function() {
 
   function drawReseauPlate(ctx) {
     ctx.save();
+    ctx.lineWidth = 0.5;
+    ctx.strokeStyle = "rgba(255, 255, 255, 0.3)";
+
     var gradationWidth = 40;
     var gradationCount = (reseau.height / gradationWidth) + 1;
 
@@ -437,8 +440,8 @@ var artificialHorizon = (function() {
       reseau.width = document.body.clientWidth;
       reseau.height = document.body.clientHeight;
       contextReseau = reseau.getContext("2d");
-      contextReseau.lineWidth = 0.5;
-      contextReseau.strokeStyle = "rgba(255, 255, 255, 0.3)";
+      // contextReseau.lineWidth = 0.5;
+      // contextReseau.strokeStyle = "rgba(255, 255, 255, 0.3)";
 
       note.textContent = canvasStatic.height;
 
