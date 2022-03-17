@@ -56,33 +56,33 @@ var artificialHorizon = (function() {
       x, y, img.width * ratio, img.height * ratio);
   }
 
-  function drawDate(canvas) {
-    var ctx = canvas.getContext('2d');
-    var str = getDateString();
-    ctx.font = "15px ui-monospace";
-    ctx.fillStyle = strokeStyle;
-    ctx.textBaseline = "bottom";
-    ctx.textAlign = "right";
-    var text = ctx.measureText(str);
-    var width = text.width;
-    var x = canvas.width - 15;
-    var y = canvas.height - 15;
-    ctx.fillText(str, x, y);
-  }
+  // function drawDate(canvas) {
+  //   var ctx = canvas.getContext('2d');
+  //   var str = getDateString();
+  //   ctx.font = "15px ui-monospace";
+  //   ctx.fillStyle = strokeStyle;
+  //   ctx.textBaseline = "bottom";
+  //   ctx.textAlign = "right";
+  //   var text = ctx.measureText(str);
+  //   var width = text.width;
+  //   var x = canvas.width - 15;
+  //   var y = canvas.height - 15;
+  //   ctx.fillText(str, x, y);
+  // }
 
-  function drawTime(canvas) {
-    var ctx = canvas.getContext('2d');
-    var str = getTimeString();
-    ctx.font = "15px ui-monospace";
-    ctx.fillStyle = strokeStyle;
-    ctx.textBaseline = "bottom";
-    ctx.textAlign = "right";
-    var text = ctx.measureText(str);
-    var width = text.width;
-    var x = canvas.width - 15;
-    var y = canvas.height - 35;
-    ctx.fillText(str, x, y);
-  }
+  // function drawTime(canvas) {
+  //   var ctx = canvas.getContext('2d');
+  //   var str = getTimeString();
+  //   ctx.font = "15px ui-monospace";
+  //   ctx.fillStyle = strokeStyle;
+  //   ctx.textBaseline = "bottom";
+  //   ctx.textAlign = "right";
+  //   var text = ctx.measureText(str);
+  //   var width = text.width;
+  //   var x = canvas.width - 15;
+  //   var y = canvas.height - 35;
+  //   ctx.fillText(str, x, y);
+  // }
 
   function repaint() {
     context.save(); // Preserve our drawing
@@ -295,21 +295,21 @@ var artificialHorizon = (function() {
     _rawPitch = evt.beta;
   }
 
-  function getDateString() {
-    var d = new Date();
-    var yr = d.getFullYear().toString().substr(2, 2); // remove '20' from year
-    var mn = pad2(d.getUTCMonth() + 1);
-    var dy = pad2(d.getUTCDate());
-    return yr + "" + mn + "" + dy;
-  }
+  // function getDateString() {
+  //   var d = new Date();
+  //   var yr = d.getFullYear().toString().substr(2, 2); // remove '20' from year
+  //   var mn = pad2(d.getUTCMonth() + 1);
+  //   var dy = pad2(d.getUTCDate());
+  //   return yr + "" + mn + "" + dy;
+  // }
 
-  function getTimeString() {
-    var d = new Date();
-    var hr = pad2(d.getUTCHours());
-    var mn = pad2(d.getUTCMinutes());
-    var ss = pad2(d.getUTCSeconds());
-    return hr + "" + mn + "" + ss;
-  }
+  // function getTimeString() {
+  //   var d = new Date();
+  //   var hr = pad2(d.getUTCHours());
+  //   var mn = pad2(d.getUTCMinutes());
+  //   var ss = pad2(d.getUTCSeconds());
+  //   return hr + "" + mn + "" + ss;
+  // }
 
   function getHorizon(radians) {
     return Math.sin(radians) * radius;
@@ -381,8 +381,10 @@ var artificialHorizon = (function() {
       // cameraSensorContext.drawImage(canvasStatic, nX, nY);
 
       // TIME AND DATE
-      drawTime(cameraSensor); // we don't want these in UI
-      drawDate(cameraSensor);
+      let dtl = new DateTimeLabel(cameraSensor);
+      dtl.update();
+      // drawTime(cameraSensor); // we don't want these in UI
+      // drawDate(cameraSensor);
 
       // Finally, grayscale the image
       var grayImageData = toGrayscale(cameraSensor);
