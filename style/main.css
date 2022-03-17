@@ -34,7 +34,7 @@ canvas#hudStatic {
 	position: absolute;
 }
 
-#hud, #color-switch {
+#hud, #colorSwitch {
 	position: absolute;
 	z-index: 4;
 	color: white;
@@ -46,7 +46,7 @@ canvas#hudStatic {
 	border: 2px solid white;
 }
 
-#color-switch {
+#colorSwitch {
 	bottom: 15px;
 }
 
