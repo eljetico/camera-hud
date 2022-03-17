@@ -18,20 +18,20 @@ class DateTimeLabel {
 
   getDateString(d) {
     let yr = d.getFullYear().toString().substr(2, 2) // remove '20' from year
-    let mn = pad2(d.getUTCMonth() + 1)
-    let dy = pad2(d.getUTCDate())
+    let mn = this.pad2(d.getUTCMonth() + 1)
+    let dy = this.pad2(d.getUTCDate())
     return yr + "" + mn + "" + dy
   }
 
   getTimeString (d) {
-    let hr = pad2(d.getUTCHours())
-    let mn = pad2(d.getUTCMinutes())
-    let ss = pad2(d.getUTCSeconds())
+    let hr = this.pad2(d.getUTCHours())
+    let mn = this.pad2(d.getUTCMinutes())
+    let ss = this.pad2(d.getUTCSeconds())
     return hr + "" + mn + "" + ss
   }
 
-  pad2 (number) {
-     return (number < 10 ? '0' : '') + number
+  pad2 (num) {
+     return (num < 10 ? '0' : '') + num
   }
 
   update () {
