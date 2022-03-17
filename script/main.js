@@ -114,7 +114,7 @@ var artificialHorizon = (function() {
     // draw scale
     // drawScaleBars(scaleWidth);
 
-    // drawFlatHorizonLine();
+    drawFlatHorizonLine();
 
     context.restore();
   }
