@@ -1,6 +1,6 @@
 @font-face {
 	font-family: 'Glass Gauge', ui-monospace, monospace;
-	src: url(fonts/glass-gauge.ttf) format('truetype');
+	src: url(../fonts/glass-gauge.ttf) format('truetype');
 	font-display: optional;
 }
 
