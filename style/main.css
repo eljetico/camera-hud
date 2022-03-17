@@ -1,10 +1,10 @@
 @font-face {
-	font-family: 'Glass Gauge';
+	font-family: 'GlassGauge';
 	src: url(../fonts/glass-gauge.ttf) format('truetype');
 }
 
 * {
-	font-family: 'Glass Gauge', ui-monospace, monospace;
+	font-family: 'GlassGauge', ui-monospace, monospace;
 	color: white;
 }
 
