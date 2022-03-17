@@ -38,12 +38,19 @@ canvas#hudStatic {
 	position: absolute;
 	z-index: 4;
 	color: white;
-	top: 15px;
 	left: 15px;
 	text-align: center;
 	padding: 1px 2px;
 	background-color: none;
 	border: 2px solid white;
+}
+
+#hud {
+	top: 15px;
+}
+
+#colorSwitch {
+	bottom: 15px;
 }
 
 #camera, #camera--view, #camera--sensor, #camera--output{
