@@ -2,7 +2,7 @@ var artificialHorizon = (function() {
   var constraints = { video: { facingMode: "environment" }, audio: false };
 
   var cameraView, cameraOutput, cameraSensor, cameraTrigger;
-  var canvas, context, canvasStatic, contextStatic, hud, pitchIndicator;
+  var canvas, context, canvasStatic, contextStatic, hud;
   var strokeStyle = "rgba(255, 255, 255, 0.6)";
   var lineWidth = 1;
 
@@ -206,10 +206,6 @@ var artificialHorizon = (function() {
     ctx.stroke();
   }
 
-  function updatePitchIndicator(txt) {
-    pitchIndicator.textContent = txt;
-  }
-
   function drawFlatHorizonLine() {
     var yPos = getHorizon(pitch); // pitch already in radians
 
@@ -223,7 +219,6 @@ var artificialHorizon = (function() {
     context.stroke();
 
     drawHorizonConnector(yPos);
-    updatePitchIndicator(txt);
 
     context.restore();
   }
@@ -332,7 +327,7 @@ var artificialHorizon = (function() {
           if (response == "granted") {
             window.addEventListener('devicemotion', updateAccelerations, true);
             window.addEventListener('deviceorientation', updateOrientations, true);
-            hud.textContent = "OK";
+            hud.textContent = "ACTIVE";
           }
         });
       } else {
@@ -411,8 +406,6 @@ var artificialHorizon = (function() {
       cameraStart();
 
       hud = document.getElementById("hud");
-      pitchIndicator = document.getElementById("pitch");
-      note = document.getElementById("note");
 
       canvas = document.getElementById("horizon");
       context = canvas.getContext("2d");
@@ -425,8 +418,6 @@ var artificialHorizon = (function() {
       contextStatic = canvasStatic.getContext("2d");
       contextStatic.strokeStyle = strokeStyle;
       contextStatic.lineWidth = lineWidth;
-
-      note.textContent = canvasStatic.height;
 
       // calculate pitchConstant based on canvasStatic height
       pitchConstant = (canvasStatic.height / 2) * Math.sin(radians(90)); // use degrees here
