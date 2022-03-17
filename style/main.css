@@ -46,10 +46,6 @@ canvas#hudStatic {
 	border: 2px solid white;
 }
 
-#colorSwitch {
-	bottom: 15px;
-}
-
 #camera, #camera--view, #camera--sensor, #camera--output{
     position: fixed;
     height: 100%;
