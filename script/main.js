@@ -365,7 +365,7 @@ var artificialHorizon = (function() {
       var nX = ((cameraView.videoWidth - canvas.width) / 2) + frameWidth;
       var nY = ((cameraView.videoHeight - canvas.height) / 2) + frameWidth;
 
-      cameraSensorContext.drawImage(canvas, nX, nY);
+      // cameraSensorContext.drawImage(canvas, nX, nY);
       context.restore();
 
       // STATIC HUD
@@ -378,7 +378,9 @@ var artificialHorizon = (function() {
       nX = ((cameraView.videoWidth - canvasStatic.width) / 2) + frameWidth;
       nY = ((cameraView.videoHeight - canvasStatic.height) / 2) + frameWidth;
 
-      cameraSensorContext.drawImage(canvasStatic, nX, nY);
+      // cameraSensorContext.drawImage(canvasStatic, nX, nY);
+
+      // TIME AND DATE
       drawTime(cameraSensor); // we don't want these in UI
       drawDate(cameraSensor);
 
