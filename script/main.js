@@ -59,7 +59,7 @@ var artificialHorizon = (function() {
   function drawDate(canvas) {
     var ctx = canvas.getContext('2d');
     var str = getDateString();
-    ctx.font = "15px GlassGauge";
+    ctx.font = "15px ui-monospace";
     ctx.fillStyle = strokeStyle;
     ctx.textBaseline = "bottom";
     ctx.textAlign = "right";
@@ -73,7 +73,7 @@ var artificialHorizon = (function() {
   function drawTime(canvas) {
     var ctx = canvas.getContext('2d');
     var str = getTimeString();
-    ctx.font = "15px GlassGauge";
+    ctx.font = "15px ui-monospace";
     ctx.fillStyle = strokeStyle;
     ctx.textBaseline = "bottom";
     ctx.textAlign = "right";
