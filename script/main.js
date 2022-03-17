@@ -106,7 +106,8 @@ var artificialHorizon = (function() {
     var ctx = canvas.getContext("2d");
     var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
-    return GrayscaleFilter.filter(imageData);
+    let filter = new GrayscaleFilter();
+    return filter.filter(imageData);
   }
 
   // Static HUD is always full screen
