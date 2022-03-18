@@ -1,5 +1,10 @@
+@font-face {
+	font-family: 'GlassGauge';
+	src: url(../fonts/glass-gauge.ttf) format('truetype');
+}
+
 * {
-	font-family: ui-monospace, monospace;
+	font-family: 'GlassGauge', ui-monospace, monospace;
 	color: white;
 }
 
@@ -29,24 +34,23 @@ canvas#hudStatic {
 	position: absolute;
 }
 
-#hud, #pitch, #note {
+#hud, #colorSwitch {
 	position: absolute;
 	z-index: 4;
 	color: white;
-	top: 15px;
 	left: 15px;
 	text-align: center;
-	padding: 2px;
-	background-color: none;
+	padding: 1px 5px;
+	background-color: transparent;
 	border: 2px solid white;
 }
 
-#pitch {
-	top: 50px;
+#hud {
+	top: 15px;
 }
 
-#note {
-	top: 85px;
+#colorSwitch {
+	bottom: 15px;
 }
 
 #camera, #camera--view, #camera--sensor, #camera--output{
@@ -57,11 +61,13 @@ canvas#hudStatic {
 }
 
 #camera--trigger{
-		width: 70px;
+		width: 60px;
+		height: 60px;
     background-color: transparent;
     color: white;
 		font-size: 1em;
     border: 2px solid white;
+		border-radius: 30px;
     padding: 2px;
     text-align: center;
     position: absolute;
@@ -72,9 +78,7 @@ canvas#hudStatic {
 .taken{
     height: 120px!important;
     width: 90px!important;
-    transition: all 0.5s ease-in;
-    border: solid 3px white;
-    box-shadow: 0 5px 10px 0 rgba(0,0,0,0.2);
+    border: solid 1px black;
     top: 20px;
     right: 20px;
     z-index: 99;

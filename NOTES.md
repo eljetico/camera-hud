@@ -14,3 +14,6 @@ function get_length(angle, length) {
   return length * (Math.sin(rad)) / Math.sin(radians(90));
 }
 ```
+
+# Add noise to Canvas
+https://www.smashingmagazine.com/2011/08/optimize-images-with-html5-canvas/
