@@ -287,19 +287,19 @@ var artificialHorizon = (function() {
 
     cameraTrigger.onclick = function() {
       // ORIGINAL PHOTO
-      cameraSensor.width = cameraView.videoWidth + (frameWidth * 2);
-      cameraSensor.height = cameraView.videoHeight + (frameWidth * 2);
+      cameraSensor.width = cameraView.videoWidth // + (frameWidth * 2);
+      cameraSensor.height = cameraView.videoHeight // + (frameWidth * 2);
       var cameraSensorContext = cameraSensor.getContext("2d");
 
       // draw frame
-      cameraSensorContext.strokeStyle = "black";
-      cameraSensorContext.lineWidth = frameWidth;
-      cameraSensorContext.strokeRect(0, 0, cameraSensor.width, cameraSensor.height);
+      // cameraSensorContext.strokeStyle = "black";
+      // cameraSensorContext.lineWidth = frameWidth;
+      // cameraSensorContext.strokeRect(0, 0, cameraSensor.width, cameraSensor.height);
 
       // add image
       cameraSensorContext.save();
       // cameraSensorContext.filter = "grayscale(100%) contrast(20%)";
-      cameraSensorContext.drawImage(cameraView, frameWidth, frameWidth);
+      cameraSensorContext.drawImage(cameraView, 0, 0);
       cameraSensorContext.restore();
 
       // HORIZON AND SCALE
@@ -311,8 +311,8 @@ var artificialHorizon = (function() {
       context.save();
       context.scale(hFactor, hFactor);
 
-      var nX = ((cameraView.videoWidth - canvas.width) / 2) + frameWidth;
-      var nY = ((cameraView.videoHeight - canvas.height) / 2) + frameWidth;
+      var nX = ((cameraView.videoWidth - canvas.width) / 2) // + frameWidth;
+      var nY = ((cameraView.videoHeight - canvas.height) / 2) // + frameWidth;
 
       // cameraSensorContext.drawImage(canvas, nX, nY);
       context.restore();
@@ -324,8 +324,8 @@ var artificialHorizon = (function() {
       contextStatic.save();
 
       contextStatic.scale(hFactor, vFactor);
-      nX = ((cameraView.videoWidth - canvasStatic.width) / 2) + frameWidth;
-      nY = ((cameraView.videoHeight - canvasStatic.height) / 2) + frameWidth;
+      nX = ((cameraView.videoWidth - canvasStatic.width) / 2) // + frameWidth;
+      nY = ((cameraView.videoHeight - canvasStatic.height) / 2) // + frameWidth;
 
       // cameraSensorContext.drawImage(canvasStatic, nX, nY);
 
