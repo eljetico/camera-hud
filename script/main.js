@@ -332,8 +332,6 @@ var artificialHorizon = (function() {
       // TIME AND DATE
       let dtl = new DateTimeLabel(cameraSensor);
       dtl.update();
-      // drawTime(cameraSensor); // we don't want these in UI
-      // drawDate(cameraSensor);
 
       // Finally, grayscale the image
       var grayImageData = toGrayscale(cameraSensor);
