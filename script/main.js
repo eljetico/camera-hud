@@ -387,6 +387,6 @@ var artificialHorizon = (function() {
 })();
 
 window.addEventListener("load", function() {
-  screen.orientation.lock("portrait");
+  // screen.orientation.lock("portrait"); // only full screen context, only Safari 16.4+
   artificialHorizon.initAndRun();
 }, false);
