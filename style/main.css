@@ -76,8 +76,8 @@ canvas#hudStatic {
 }
 
 .taken{
-    height: 120px!important;
-    width: 90px!important;
+    height: 90px!important;
+    width: 120px!important;
     border: solid 1px black;
     top: 20px;
     right: 20px;

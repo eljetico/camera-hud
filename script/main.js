@@ -1,5 +1,20 @@
 var artificialHorizon = (function() {
-  var constraints = { video: { facingMode: "environment" }, audio: false };
+  var constraints = {
+    video: {
+      facingMode: "environment",
+      width: {
+        min: 1280,
+        ideal: 1920,
+        max: 2560,
+      },
+      height: {
+        min: 720,
+        ideal: 1080,
+        max: 1440,
+      }
+    },
+    audio: false
+  };
 
   var cameraView, cameraOutput, cameraSensor, cameraTrigger;
   var canvas, context, canvasStatic, contextStatic, hud;
