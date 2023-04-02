@@ -369,8 +369,6 @@ var artificialHorizon = (function() {
       cameraSensor = document.querySelector("#camera--sensor"),
       cameraTrigger = document.querySelector("#camera--trigger");
 
-      cameraView.requestFullscreen();
-
       cameraStart();
 
       hud = document.getElementById("hud");
