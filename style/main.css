@@ -54,9 +54,11 @@ canvas#hudStatic {
 }
 
 #camera, #camera--view, #camera--sensor, #camera--output{
-    position: relative;
+    position: fixed;
     height: 100%;
     width: 100%:
+		top: 0;
+		left: 0;
     object-fit: cover;
 }
 
