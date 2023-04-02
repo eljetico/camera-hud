@@ -387,5 +387,6 @@ var artificialHorizon = (function() {
 })();
 
 window.addEventListener("load", function() {
+  screen.orientation.lock("portrait");
   artificialHorizon.initAndRun();
 }, false);
